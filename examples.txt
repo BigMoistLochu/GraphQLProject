@@ -1,0 +1,120 @@
+>>Wyciagnij wszystkie auta
+query {
+  cars {
+    id
+    mark
+    age
+    color
+    productionDate
+    engine {
+      id
+      horsepower
+      fuelType
+      capacity
+      cylinders
+      manufacturer {
+        id
+        name
+        country
+      }
+    }
+  }
+}
+
+>>Wyciagnij wszystkie silnik
+query {
+  engines {
+      id
+      horsepower
+      fuelType
+      capacity
+      cylinders
+      manufacturer {
+        id
+        name
+        country
+      }
+  }
+}
+
+>>Wyciagnij auto o konkretnym id
+query {
+  car(id: 1) {
+    id
+    mark
+    age
+    color
+    productionDate
+    engine {
+      id
+      horsepower
+      fuelType
+      manufacturer {
+        id
+        name
+        country
+      }
+    }
+  }
+}
+
+>>Dodaj auto
+mutation {
+  addManufacturer(input: {
+    name: "Daimler AG",
+    country: "Niemcy"
+    }){ 
+        id
+        name
+        country
+    }
+}
+
+
+
+>>zaktualizuj automutation {
+  updateCar(id: 1, input: {
+    mark: "Pizda",
+    age: 28,
+    color: "Czerwony",
+    productionDate: "1997-01-01T00:00:00Z",
+    engineId: 2
+  }) {
+    id
+    mark
+    age
+    color
+    productionDate
+    engine {
+      id
+      horsepower
+      fuelType
+      manufacturer {
+        id
+        name
+        country
+      }
+    }
+  }
+}
+
+
+
+>>Paginacja,sortowanie input
+query {
+  carsfilter(
+    filter: { mark: "audi", minAge: 10, maxAge: 30 }
+    sort: { field: "age", order: ASC }
+    pagination: { limit: 2, offset: 0 }
+  ) {
+    id
+    mark
+    age
+    color
+    productionDate
+    engine {
+      horsepower
+    }
+  }
+}
+
